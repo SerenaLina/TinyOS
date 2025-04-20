@@ -1,0 +1,3 @@
+D:/Projects/TinyOS/build/CMakeFiles/bootloader.elf.dir
+D:/Projects/TinyOS/build/CMakeFiles/edit_cache.dir
+D:/Projects/TinyOS/build/CMakeFiles/rebuild_cache.dir
