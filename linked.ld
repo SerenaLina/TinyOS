@@ -8,6 +8,7 @@ MEMORY
 
 SECTIONS
 {
+    . = 0x80400000;
     .text : {
         *(.text.init)
         *(.text)
@@ -33,6 +34,13 @@ SECTIONS
         *(COMMON)
         . = ALIGN(8);
         bss_end = .;
+    } > RAM
+
+    .stack: {
+        stack_start = .;
+        . = . + 4096;
+        . = ALIGN(16);
+        stack_end = .;
     } > RAM
 }
 

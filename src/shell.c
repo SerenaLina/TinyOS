@@ -84,6 +84,8 @@ void cmd_info(void) {
     uart_puts("Memory: 128KB\n\r");
 }
 
+
+//Check disk status
 void cmd_disk(void)
 {
     // Hope to fix it.Capacity is 00000000 :(
