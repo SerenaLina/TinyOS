@@ -3,8 +3,7 @@ ENTRY(_start)
 
 MEMORY
 {
-    BOOT_ROM(rx) : ORIGIN = 0x80000000, LENGTH = 64K
-    RAM(rwx) : ORIGIN = 0x80010000, LENGTH = 128M
+    RAM(rwx) : ORIGIN = 0x80200000, LENGTH = 128M
 }
 
 SECTIONS
@@ -13,18 +12,18 @@ SECTIONS
         *(.text.init)
         *(.text)
         *(.text.*)
-    } > BOOT_ROM
+    } > RAM
 
     .rodata : {
         *(.rodata)
         *(.rodata.*)
-    } > BOOT_ROM
+    } > RAM
 
     .data : {
         . = ALIGN(8);
         *(.data)
         *(.data.*)
-    } > RAM AT > BOOT_ROM
+    } > RAM
 
     .bss : {
         . = ALIGN(8);

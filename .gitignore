@@ -1,0 +1,27 @@
+# 构建输出
+build/
+*.elf
+*.o
+*.obj
+*.bin
+*.hex
+
+# 磁盘镜像
+*.img
+
+# IDE/编辑器配置
+.vscode/
+.idea/
+*.swp
+*~
+
+# CMake生成的文件
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+*.ninja
+.ninja_*
+
+# 系统文件
+.DS_Store
+Thumbs.db

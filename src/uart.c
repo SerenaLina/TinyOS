@@ -19,3 +19,14 @@ char getc(void) {
         ;
     return *UART_RBR;
 }
+
+void uart_puthex(unsigned int hex) {
+    uart_puts("0x");
+    for(int i = 7; i >= 0; i--) {
+        int h = (hex >> (i * 4)) & 0xf;
+        if(h < 10)
+            uart_putc('0' + h);
+        else
+            uart_putc('a' + h - 10);
+    }
+}

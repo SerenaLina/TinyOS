@@ -11,6 +11,7 @@
 void init_uart(void);
 void uart_putc(char c);
 void uart_puts(const char *s);
+void uart_puthex(unsigned int hex); //debug
 char getc(void);
 
 #endif

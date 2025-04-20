@@ -13,6 +13,7 @@ set(SOURCES
     src/main.c
     src/uart.c
     src/shell.c
+    src/disk.c
 )
 
 add_executable(bootloader.elf ${SOURCES})

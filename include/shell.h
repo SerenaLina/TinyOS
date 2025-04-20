@@ -3,7 +3,7 @@
 
 #include "types.h"
 #include "uart.h"
-
+#include "disk.h"
 
 struct shell_cmd {
     const char *name;
@@ -19,6 +19,7 @@ void shell_run(void);
 void cmd_help(void);
 void cmd_clear(void);
 void cmd_info(void);
+void cmd_disk(void);
 void excute_cmd(char *cmd);
 
 int strcmp(const char *s1, const char *s2);

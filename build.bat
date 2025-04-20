@@ -24,3 +24,12 @@ if %ERRORLEVEL% NEQ 0 (
 
 echo Build successful!
 cd ..
+
+:: 创建32MB的磁盘映像（如果不存在）
+if not exist disk.img (
+    fsutil file createnew disk.img 33554432
+    echo Created new disk image
+)
+
+:: 运行QEMU
+qemu-system-riscv64 -machine virt -m 128M -drive file=disk.img,if=virtio,format=raw -nographic
