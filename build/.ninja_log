@@ -1,7 +1,0 @@
-# ninja log v6
-2	121	7668274231993791	CMakeFiles/bootloader.elf.dir/bootasm.S.obj	8ceb22dc26b9aa91
-14	144	7668274232113723	CMakeFiles/bootloader.elf.dir/src/main.c.obj	f9e62573376225de
-26	145	7668274232243721	CMakeFiles/bootloader.elf.dir/src/uart.c.obj	cc0f41b0bd776316
-51	157	7668274232485854	CMakeFiles/bootloader.elf.dir/src/disk.c.obj	c0d7d12d7f7a383c
-39	158	7668274232359849	CMakeFiles/bootloader.elf.dir/src/shell.c.obj	7c7c9dc3b4e6eec7
-158	229	7668274233551834	bootloader.elf	267cbda08315a8a9
