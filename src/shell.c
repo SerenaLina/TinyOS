@@ -50,10 +50,12 @@ int strcmp(const char *s1, const char *s2) {
 }
 
 void cmd_help(void) {
-    uart_puts("help: Display help information.\n\r");
-    uart_puts("clear: Clear the screen.\n\r");
-    uart_puts("info: Display system information.\n\r");
-    uart_puts("disk: Disk operation.\n\r");
+    for(const struct shell_cmd *p = shell_cmds; p->name; p++) {
+        uart_puts(p->name);
+        uart_puts(": ");
+        uart_puts(p->desc);
+        uart_puts("\n\r");
+    }
 }
 
 void excute_cmd(char *cmd) {
@@ -63,7 +65,11 @@ void excute_cmd(char *cmd) {
             return;
         }
     }
-    uart_puts("Command not found.\n\r");
+    if(cmd[0] != '\0') {
+        uart_puts("Unknown command: ");
+        uart_puts(cmd);
+        uart_puts("\n\r");
+    }
 }
 
 void cmd_clear(void) {
@@ -80,15 +86,38 @@ void cmd_info(void) {
 
 void cmd_disk(void)
 {
+    // Hope to fix it.Capacity is 00000000 :(
+    volatile uint64_t *capacity = (uint64_t *)(VIRTIO_BLK_BASE + VIRTIO_REG_CONFIG + VIRTIO_BLK_CONFIG_CAPACITY);
+    uint64_t bytes = *capacity * 512;
+    volatile unsigned int *magic = (unsigned int *)(VIRTIO_BLK_BASE + VIRTIO_REG_MAGIC);
+    volatile unsigned int *version = (unsigned int *)(VIRTIO_BLK_BASE + VIRTIO_REG_VERSION);
+    volatile unsigned int *device_id = (unsigned int *)(VIRTIO_BLK_BASE + VIRTIO_REG_DEVICE_ID);
+    uart_puts("Disk Capacity: ");
+
+    uart_puthex((uint32_t)(*capacity >> 32));
+    uart_puthex((uint32_t)(*capacity));
+    uart_puts(" sectors\n\r");
+
+    uart_puts("Total Size: ");
+    if (bytes >= 1024*1024*1024) {
+        uart_puthex((uint32_t)(bytes / (1024*1024*1024)));
+        uart_puts(" GB\n\r");
+    } else if (bytes >= 1024*1024) {
+        uart_puthex((uint32_t)(bytes / (1024*1024)));
+        uart_puts(" MB\n\r");
+    } else if (bytes >= 1024) {
+        uart_puthex((uint32_t)(bytes / 1024));
+        uart_puts(" KB\n\r");
+    } else {
+        uart_puthex((uint32_t)bytes);
+        uart_puts(" bytes\n\r");
+    }
     uart_puts("Disk Operation:\n\r");
     uart_puts("Status:");
-    volatile unsigned int *magic = (unsigned int *)(VIRTIO_BLK_BASE + VIRTIO_REG_MAGIC);
     uart_puts(*magic == 0x74726976 ? "OK\n\r" : "Failed\n\r");
     uart_puts("Version:");
-    volatile unsigned int *version = (unsigned int *)(VIRTIO_BLK_BASE + VIRTIO_REG_VERSION);
     uart_puts(*version == 0x00000001 || 0x00000002? "OK\n\r" : "Failed\n\r");
     uart_puts("Device ID:");
-    volatile unsigned int *device_id = (unsigned int *)(VIRTIO_BLK_BASE + VIRTIO_REG_DEVICE_ID);
     uart_puts(*device_id == 0x00000000? "OK\n\r" : "Failed\n\r");
 
 

@@ -9,6 +9,9 @@ Noting special about this device and registers.
 #define VIRTIO_REG_MAGIC         0x000
 #define VIRTIO_REG_VERSION       0x004
 #define VIRTIO_REG_DEVICE_ID     0x008
+#define VIRTIO_REG_CONFIG        0x100
+#define VIRTIO_BLK_CONFIG_CAPACITY 0x0
+
 #define VIRTIO_REG_QUEUE_SEL     0x030
 #define VIRTIO_REG_QUEUE_NUM     0x034
 #define VIRTIO_REG_QUEUE_READY   0x044
